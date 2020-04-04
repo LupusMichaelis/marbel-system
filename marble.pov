@@ -21,7 +21,7 @@ camera
     }
 
     finish {
-        F_Glass5
+        F_Glass9
     }
 }
 
@@ -63,11 +63,9 @@ camera
                 [1 HardLight]
             }
         }
-        /*
         finish {
-            F_Glass5
+            F_Glass10
         }
-        */
     }
 	interior {
 		ior 1.517
