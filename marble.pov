@@ -2,8 +2,12 @@
 #include "colors.inc"
 #include "skies.inc"
 
-#declare Obs0 = <-5,0.2,0> ;
-#declare Obs = <-5 * cos(clock*2*pi/360), 0.2, sin(clock*2*pi/360)> ;
+#declare Obs0 = <-5,0.2,0>;
+#declare Obs = <-5 * cos(clock*2*pi/360), 0.2, sin(clock*2*pi/360)>;
+
+// Violet
+#declare SoftLight = color rgb <1,.75,1.25>;
+#declare HardLight = color rgb <2,1.5,2.5>;
 
 camera
 {
@@ -14,11 +18,12 @@ camera
 #declare Glass = texture {
 	pigment {
 		Col_Glass_General
-		}
-		finish {
-			F_Glass5
-		}
-	}
+    }
+
+    finish {
+        F_Glass5
+    }
+}
 
 #declare Tore = torus {
 	2,0.2
@@ -30,20 +35,49 @@ camera
 
 #declare Marble = sphere {
 	<1,1,1>, 1
-	texture{Glass}
+	texture {
+        Glass
+    }
 	interior {
 		ior 1.517
 		caustics 0.5
 	}
 }
 
-// Violet
-#declare SoftLight = color rgb <0.4,0.3,0.5> ;
-#declare HardLight = color rgb <4,3,5> ;
+#declare Zebra = sphere {
+	<1,1,1>, 1
+	texture {
+        pigment {
+            gradient y-2*z
+            color_map {
+                [0 HardLight]
+                [.1 SoftLight]
+                [.2 HardLight]
+                [.3 SoftLight]
+                [.4 HardLight]
+                [.5 SoftLight]
+                [.6 HardLight]
+                [.7 SoftLight]
+                [.8 HardLight]
+                [.9 SoftLight]
+                [1 HardLight]
+            }
+        }
+        /*
+        finish {
+            F_Glass5
+        }
+        */
+    }
+	interior {
+		ior 1.517
+		caustics 0.5
+	}
+}
 
 sky_sphere {
 	pigment {
-        color rgb <1,.75,1.25>
+        color SoftLight
         scale 2
         translate -1
 	}
@@ -51,14 +85,15 @@ sky_sphere {
 
 #declare System = union {
 	light_source {
-		<0,.3,0>
+		<0, .3, 0>
 		color White
 	}
 	object { Tore }
+	object { Zebra translate <4,4,-1.3> }
+
 	object { Marble translate <0,.3,0> }
-	object { Marble translate <4,4,-1.3> }
 	
-	object { Marble translate <-5,0,-2.3> } // Obs 1
+	object { Marble translate <-5,0,-2.3> }
 	object { Marble translate <-.5,0,1> }
 	object { Marble translate <.5,0,4> }
 	
