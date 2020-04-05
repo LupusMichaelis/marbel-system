@@ -102,6 +102,25 @@ sky_sphere
     }
 }
 
+plane
+{
+    <0, -.1, 0>, 0.0001
+
+    texture
+    {
+        pigment
+        {
+            gradient <1, 0, 5>
+            color_map
+            {
+                [ 0.0 color HardLight ]
+                [ 0.5 color SoftLight ]
+                [ 1.0 color HardLight ]
+            }
+        }
+    }
+}
+
 #declare System = union
 {
     light_source
