@@ -26,22 +26,50 @@ assemble()
         $output/marble-$standard.mkv
 }
 
-mkdir -p $output
+main()
+{
+    mkdir -p $output
 
-generate +W640 +H360
-assemble 360p
+    local resolution="$1"
+    case $resolution in
+        360p)
+            local width=640
+            local height=360
+        ;;
 
-generate +W854 +H480
-assemble 480p
+        480p)
+            local width=854
+            local height=480
+        ;;
 
-generate +W1280 +H720
-assemble 720p
+        720p)
+            local width=1280
+            local height=720
+        ;;
 
-generate +W1920 +H1080
-assemble 1080p
+        1080p)
+            local width=1920
+            local height=1080
+        ;;
 
-generate +W3840 +H2160
-assemble 2160p
+        2160p)
+            local width=3840
+            local height=2160
+        ;;
 
-generate +W7680 +H4320
-assemble 4320p
+        4320p)
+            local width=7680
+            local height=4320
+        ;;
+        *)
+            echo "Resolution '$resolution' not supported"
+            echo "Available resolutions: 360p, 480p, 720p, 1080p, 2160p, 4320p"
+            exit
+            ;;
+    esac
+
+    generate +W$width +H$height
+    assemble $resolution
+}
+
+main "$@"
