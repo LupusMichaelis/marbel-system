@@ -10,7 +10,7 @@
 
 camera
 {
-    right x*1280/720
+    right x*image_width/image_height
     location Obs look_at <0, 1, 0>
 }
 
